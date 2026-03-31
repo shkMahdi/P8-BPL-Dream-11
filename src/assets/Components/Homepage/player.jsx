@@ -1,11 +1,10 @@
 import React, { use } from 'react';
+import AvailablePlayers from '../Homepage/availablePlayers'
 
 const Player = ({playerPromise}) => {
-    const data = use(playerPromise);
+    const players = use(playerPromise);
     return (
-        <div>
-            <p>Number of players: {data.length}</p>
-        </div>
+        <AvailablePlayers players={players}/>
     );
 };
 

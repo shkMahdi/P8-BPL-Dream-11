@@ -5,6 +5,7 @@ import SelectedPlayers from './selectedPlayers';
 const Player = ({playerPromise, coin, setCoin}) => {
     const players = use(playerPromise);
     const [playerCatagory, setPlayerCatagory] = useState("available");
+    const [selectedPlayers, setSelectedPlayers] = useState([]);
 
     return (
         <div className='max-w-330 mx-auto my-8'>
@@ -21,12 +22,13 @@ const Player = ({playerPromise, coin, setCoin}) => {
                     </button>
                     <button onClick={() => setPlayerCatagory('selected')} 
                         className={`btn ${playerCatagory === 'selected' ? "bg-yellow-300" : ""} rounded-l-none rounded-xl font-bold`}>
-                        Selected()
+                        Selected({selectedPlayers.length})
                     </button>
                 </div>
             </div>
             {
-                playerCatagory === "available" ? <AvailablePlayers players={players} coin={coin} setCoin = {setCoin}/> : <SelectedPlayers></SelectedPlayers>
+                playerCatagory === "available" ? <AvailablePlayers players={players} coin={coin} setCoin = {setCoin} selectedPlayers = {selectedPlayers} setSelectedPlayers = {setSelectedPlayers}/> : 
+                <SelectedPlayers selectedPlayers = {selectedPlayers} setSelectedPlayers = {setSelectedPlayers} coin={coin} setCoin = {setCoin}></SelectedPlayers>
             }
         </div>
     );

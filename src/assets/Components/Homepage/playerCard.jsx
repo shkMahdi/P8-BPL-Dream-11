@@ -1,15 +1,15 @@
-import {useState} from 'react';
 import { FaUser } from "react-icons/fa";
 import { FaFlag } from "react-icons/fa";
 import { FiDollarSign } from "react-icons/fi";
 
-const PlayerCard = ({player, coin, setCoin}) => {
-    const [selected, setSelected] = useState(false);
+const PlayerCard = ({player, coin, setCoin, selectedPlayers, setSelectedPlayers}) => {
+    const isPlayerSelected = selectedPlayers.some(p => p.playerName === player.playerName);
+    
     const handleCoin = () => {
         if(coin - player.price >= 0){
-            setSelected(true);
             setCoin(coin - player.price);
             alert(player.playerName + " is selected!");
+            setSelectedPlayers([...selectedPlayers, player])
         }else{
             alert("Coins not enough!");
         }
@@ -37,8 +37,8 @@ const PlayerCard = ({player, coin, setCoin}) => {
                     </div>
                     <div className="flex justify-between items-center">
                         <p className='font-bold flex items-center'>Price: <FiDollarSign />{player.price}</p>
-                        <button onClick={()=> handleCoin()} className="btn btn-success" disabled={selected}>
-                            {selected ? "Selected" : "Choose Player"}
+                        <button onClick={()=> handleCoin()} className="btn btn-success" disabled={isPlayerSelected}>
+                            {isPlayerSelected ? "Selected" : "Choose Player"}
                         </button>
                     </div>
                 </div>

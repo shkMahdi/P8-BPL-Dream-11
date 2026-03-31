@@ -1,9 +1,10 @@
-import React, { use, useState } from 'react';
-import AvailablePlayers from '../Homepage/availablePlayers'
+import { use, useState } from 'react';
+import AvailablePlayers from './availablePlayers'
+import SelectedPlayers from './selectedPlayers';
 
-const Player = ({playerPromise}) => {
+const Player = ({playerPromise, coin, setCoin}) => {
     const players = use(playerPromise);
-    const [playerCatagory, setPlayerCatagory] = useState("selected");
+    const [playerCatagory, setPlayerCatagory] = useState("available");
 
     return (
         <div className='max-w-330 mx-auto my-8'>
@@ -24,7 +25,9 @@ const Player = ({playerPromise}) => {
                     </button>
                 </div>
             </div>
-            <AvailablePlayers players={players}/>
+            {
+                playerCatagory === "available" ? <AvailablePlayers players={players} coin={coin} setCoin = {setCoin}/> : <SelectedPlayers></SelectedPlayers>
+            }
         </div>
     );
 };
